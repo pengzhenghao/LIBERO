@@ -13,7 +13,11 @@ long_description = "".join(lines)
 
 setup(
     name="libero",
-    packages=[package for package in find_packages() if package.startswith("libero")],
+    # The repository places actual python packages under the `libero/` subdirectory
+    # (i.e. LIBERO/libero/libero/...). Tell setuptools to look inside that folder
+    # so the installed package name is `libero` (not `libero.libero`).
+    packages=find_packages(where="libero"),
+    package_dir={"": "libero"},
     install_requires=[],
     eager_resources=["*"],
     include_package_data=True,
